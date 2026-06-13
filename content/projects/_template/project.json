@@ -1,0 +1,12 @@
+{
+  "name": "Project Name",
+  "tagline": "One-line description shown on the card",
+  "description": "Longer description shown on the highlight card if this project is featured. Keep it to two or three sentences. Plain prose, no marketing language.",
+  "category": "software",
+  "status": "wip",
+  "version": "v0.1.0",
+  "url": "https://example.com",
+  "repoUrl": "https://github.com/yourname/yourrepo",
+  "featured": false,
+  "order": 99
+}

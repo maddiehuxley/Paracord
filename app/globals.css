@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -----------------------------------------------------------
+   Paracord Center design system
+   Light = white paper, orange ink, black text.
+   Dark  = inverted. Same orange. No black-on-black anywhere.
+----------------------------------------------------------- */
+
+:root {
+  --paper: #FFFFFF;
+  --ink: #0E0E0E;
+  --ink-2: #4A4A4A;
+  --ink-3: #7A7A7A;
+  --orange: #FF8C1A;
+  --orange-deep: #D97208;
+  --hairline: rgba(255, 140, 26, 0.55);
+  --hairline-soft: rgba(255, 140, 26, 0.25);
+}
+
+.dark {
+  --paper: #0E0E0E;
+  --ink: #F5F5F2;
+  --ink-2: #BFBFBA;
+  --ink-3: #888880;
+  --orange: #FF8C1A;
+  --orange-deep: #FFA64D;
+  --hairline: rgba(255, 140, 26, 0.65);
+  --hairline-soft: rgba(255, 140, 26, 0.3);
+}
+
+html, body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--orange);
+  color: var(--paper);
+}
+
+/* Workshop type roles */
+.t-display {
+  font-family: var(--font-workbench), ui-monospace, monospace;
+  letter-spacing: 0.03em;
+  line-height: 0.95;
+}
+
+.t-label {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--orange);
+  text-transform: uppercase;
+}
+
+.t-meta {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--ink-2);
+  text-transform: uppercase;
+}
+
+/* The dot pattern */
+.bg-dots {
+  background-image: radial-gradient(circle, var(--orange) 1.4px, transparent 1.6px);
+  background-size: 18px 18px;
+  background-position: 9px 9px;
+}
+
+.bg-dots-tight {
+  background-image: radial-gradient(circle, var(--orange) 1.2px, transparent 1.4px);
+  background-size: 14px 14px;
+}
+
+.bg-dots-soft {
+  background-image: radial-gradient(circle, var(--hairline-soft) 1.4px, transparent 1.6px);
+  background-size: 18px 18px;
+}
+
+/* Workshop frame: hairline orange border, sharp corners */
+.frame {
+  border: 1px solid var(--orange);
+  border-radius: 2px;
+}
+
+.frame-soft {
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+}
+
+.frame-dashed {
+  border: 1px dashed var(--hairline);
+  border-radius: 2px;
+}
+
+/* Hairlines */
+.hairline-t { border-top: 1px solid var(--hairline); }
+.hairline-b { border-bottom: 1px solid var(--hairline); }
+.hairline-l { border-left: 1px solid var(--hairline); }
+.hairline-r { border-right: 1px solid var(--hairline); }
+
+.hairline-t-thick { border-top: 1.5px solid var(--orange); }
+.hairline-b-thick { border-bottom: 1.5px solid var(--orange); }
+
+/* Workshop button */
+.btn-shop {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1.5px solid var(--orange);
+  color: var(--orange);
+  background: transparent;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  border-radius: 2px;
+}
+
+.btn-shop:hover {
+  background: var(--orange);
+  color: var(--paper);
+}
+
+/* Dotted-underline links */
+.link-dot {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--orange);
+  padding-bottom: 1px;
+}
+
+.link-dot:hover {
+  color: var(--orange);
+}

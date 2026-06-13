@@ -1,0 +1,11 @@
+{
+  "name": "Paragram",
+  "tagline": "Private messaging platform",
+  "description": "Real-time messaging built like hardware. End-to-end encrypted channels, voice and video over WebRTC, no ads, no tracking, no data harvesting. Hosted in Nuremberg, payments processed in the EU.",
+  "category": "web",
+  "status": "beta",
+  "version": "v0.4.2.1",
+  "url": "https://paragram.app",
+  "featured": true,
+  "order": 1
+}
