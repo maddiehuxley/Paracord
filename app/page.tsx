@@ -1,8 +1,10 @@
 import { Suspense } from 'react';
 import { Nav } from '@/components/nav';
 import { Hero } from '@/components/hero';
-import { Featured } from '@/components/featured';
+import { Shipping } from '@/components/shipping';
 import { ProjectGrid } from '@/components/project-grid';
+import { Principles } from '@/components/principles';
+import { Operator } from '@/components/operator';
 import { Footer } from '@/components/footer';
 import { getAllProjects, getFeaturedProjects } from '@/lib/projects';
 import { getSite } from '@/lib/site';
@@ -26,13 +28,21 @@ export default async function HomePage() {
 
       <Hero intro={site.intro} />
 
-      {featuredOne && <Featured project={featuredOne} />}
+      {featuredOne && <Shipping project={featuredOne} />}
 
       <Suspense fallback={null}>
         <ProjectGrid projects={projects} />
       </Suspense>
 
-      <Footer site={site} />
+      <div id="principles">
+        <Principles />
+      </div>
+
+      <div id="operator">
+        <Operator site={site} />
+      </div>
+
+      <Footer site={site} projects={projects} />
     </main>
   );
 }

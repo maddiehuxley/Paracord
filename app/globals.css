@@ -6,26 +6,33 @@
    Paracord Center design system
    Light = white paper, orange ink, black text.
    Dark  = inverted. Same orange. No black-on-black anywhere.
+   Accent: blueprint blue, used sparingly for one section.
 ----------------------------------------------------------- */
 
 :root {
   --paper: #FFFFFF;
+  --paper-warm: #FDFBF6;
   --ink: #0E0E0E;
   --ink-2: #4A4A4A;
   --ink-3: #7A7A7A;
   --orange: #FF8C1A;
   --orange-deep: #D97208;
+  --blueprint: #2C4D6E;
+  --blueprint-bg: #F4F6F9;
   --hairline: rgba(255, 140, 26, 0.55);
-  --hairline-soft: rgba(255, 140, 26, 0.25);
+  --hairline-soft: rgba(255, 140, 26, 0.28);
 }
 
 .dark {
   --paper: #0E0E0E;
+  --paper-warm: #161412;
   --ink: #F5F5F2;
   --ink-2: #BFBFBA;
   --ink-3: #888880;
   --orange: #FF8C1A;
   --orange-deep: #FFA64D;
+  --blueprint: #A8C3DF;
+  --blueprint-bg: #131820;
   --hairline: rgba(255, 140, 26, 0.65);
   --hairline-soft: rgba(255, 140, 26, 0.3);
 }
@@ -37,6 +44,7 @@ html, body {
   font-size: 14px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
 }
 
 ::selection {
@@ -67,7 +75,24 @@ html, body {
   text-transform: uppercase;
 }
 
-/* The dot pattern */
+/* Blinking workshop caret */
+.t-caret {
+  display: inline-block;
+  color: var(--orange);
+  animation: t-blink 1.05s steps(1, end) infinite;
+}
+
+@keyframes t-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-caret { animation: none; opacity: 1; }
+  html { scroll-behavior: auto; }
+}
+
+/* The dot patterns */
 .bg-dots {
   background-image: radial-gradient(circle, var(--orange) 1.4px, transparent 1.6px);
   background-size: 18px 18px;
@@ -82,6 +107,12 @@ html, body {
 .bg-dots-soft {
   background-image: radial-gradient(circle, var(--hairline-soft) 1.4px, transparent 1.6px);
   background-size: 18px 18px;
+}
+
+.bg-dots-blueprint {
+  background-image: radial-gradient(circle, var(--blueprint) 1.2px, transparent 1.4px);
+  background-size: 16px 16px;
+  opacity: 0.5;
 }
 
 /* Workshop frame: hairline orange border, sharp corners */
@@ -109,27 +140,42 @@ html, body {
 .hairline-t-thick { border-top: 1.5px solid var(--orange); }
 .hairline-b-thick { border-bottom: 1.5px solid var(--orange); }
 
-/* Workshop button */
+/* Workshop buttons */
 .btn-shop {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
+  padding: 9px 16px;
   border: 1.5px solid var(--orange);
   color: var(--orange);
   background: transparent;
   font-family: var(--font-plex-mono), ui-monospace, monospace;
   font-size: 11px;
+  font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   cursor: pointer;
   text-decoration: none;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.16s, color 0.16s, transform 0.16s;
   border-radius: 2px;
 }
 
 .btn-shop:hover {
   background: var(--orange);
+  color: var(--paper);
+}
+
+.btn-shop:active {
+  transform: translateY(1px);
+}
+
+.btn-shop-solid {
+  background: var(--orange);
+  color: var(--paper);
+}
+
+.btn-shop-solid:hover {
+  background: var(--orange-deep);
   color: var(--paper);
 }
 

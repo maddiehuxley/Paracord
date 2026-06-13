@@ -3,7 +3,15 @@
 import { useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
 import type { Project } from '@/lib/types';
-import { ProjectCard, EmptySlot } from './project-card';
+import { ProjectCard } from './project-card';
+import { AnimateIn } from './animate-in';
+
+const CATEGORY_COPY: Record<string, { label: string; sub: string }> = {
+  all: { label: 'All projects', sub: 'Everything we ship, in one index.' },
+  software: { label: 'Software', sub: 'Desktop and command-line builds.' },
+  hardware: { label: 'Hardware', sub: 'Physical things and embedded work.' },
+  web: { label: 'Web apps', sub: 'Things you visit in a browser.' }
+};
 
 export function ProjectGrid({ projects }: { projects: Project[] }) {
   const params = useSearchParams();
@@ -14,44 +22,54 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
     return projects.filter((p) => p.category === cat);
   }, [projects, cat]);
 
-  // Pad to at least 6 visible cards so the grid looks structured even early on
-  const minSlots = 6;
-  const empties = Math.max(0, minSlots - filtered.length);
+  const copy = CATEGORY_COPY[cat] ?? CATEGORY_COPY.all;
 
   return (
-    <section id="projects" className="bg-dots-soft px-5 py-8 hairline-t">
-      <header className="flex items-baseline justify-between mb-4">
-        <h2 className="t-display text-[22px]" style={{ color: 'var(--ink)' }}>
-          All projects.
+    <section id="projects" className="px-5 py-10 md:py-14 hairline-t bg-dots-soft">
+      <AnimateIn>
+        <header className="flex items-baseline justify-between mb-3">
+          <span className="t-label" style={{ fontSize: 10 }}>
+            Unit 03 · Index
+          </span>
+          <span className="t-label" style={{ fontSize: 9 }}>
+            Fig. 03 / {cat}
+          </span>
+        </header>
+
+        <h2 className="t-display mb-1" style={{ fontSize: 32, color: 'var(--ink)' }}>
+          {copy.label}.
         </h2>
-        <span className="t-label" style={{ fontSize: 9 }}>
-          Fig. 03 / Index · {cat}
-        </span>
-      </header>
-
-      <div
-        className="grid gap-2.5"
-        style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))' }}
-      >
-        {filtered.map((p) => (
-          <ProjectCard key={p.slug} project={p} />
-        ))}
-        {Array.from({ length: empties }, (_, i) => (
-          <EmptySlot
-            key={`empty-${i}`}
-            slot={filtered.length + i + 1}
-            category={cat === 'all' ? undefined : cat}
-          />
-        ))}
-      </div>
-
-      {filtered.length === 0 && (
         <p
-          className="t-label mt-6"
-          style={{ fontSize: 10, color: 'var(--ink-3)' }}
+          className="text-[13px] mb-7"
+          style={{ color: 'var(--ink-2)', maxWidth: 520 }}
         >
-          No projects in this category yet.
+          {copy.sub}
         </p>
+      </AnimateIn>
+
+      {filtered.length === 0 ? (
+        <div
+          className="frame-dashed p-8 text-center"
+          style={{ background: 'var(--paper)' }}
+        >
+          <div className="t-label mb-2" style={{ fontSize: 10 }}>
+            Empty drawer
+          </div>
+          <p className="text-[13px]" style={{ color: 'var(--ink-2)' }}>
+            Nothing under {cat} yet. Check back as we ship more.
+          </p>
+        </div>
+      ) : (
+        <div
+          className="grid gap-4"
+          style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))' }}
+        >
+          {filtered.map((p, i) => (
+            <AnimateIn key={p.slug} delay={i * 60}>
+              <ProjectCard project={p} />
+            </AnimateIn>
+          ))}
+        </div>
       )}
     </section>
   );

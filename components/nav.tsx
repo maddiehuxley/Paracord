@@ -26,15 +26,15 @@ export function Nav() {
   return (
     <nav
       className="sticky top-0 z-30 flex items-center justify-between px-5 py-3 hairline-b-thick"
-      style={{ background: 'var(--paper)' }}
+      style={{ background: 'var(--paper)', backdropFilter: 'blur(8px)' }}
     >
-      <a href="#top" className="flex items-center gap-2" aria-label="Paracord Center home">
-        <Logo size={26} />
+      <a href="#top" className="flex items-center gap-2.5" aria-label="Paracord Center home">
+        <Logo size={30} variant="mark" priority />
         <span className="flex flex-col leading-none">
           <span className="t-display text-[18px]" style={{ color: 'var(--ink)' }}>
             PARACORD
           </span>
-          <span className="t-label" style={{ marginTop: 2, fontSize: 8 }}>
+          <span className="t-label" style={{ marginTop: 3, fontSize: 8, letterSpacing: '0.35em' }}>
             CENTER
           </span>
         </span>
