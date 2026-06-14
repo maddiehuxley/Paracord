@@ -2,22 +2,27 @@ import Image from 'next/image';
 
 type LogoProps = {
   size?: number;
-  /** "mark" = just the P-mark (no surrounding dots), "full" = full logo with dot field */
-  variant?: 'mark' | 'full';
+  variant?: 'mark' | 'mark-knockout' | 'full' | 'full-knockout';
   className?: string;
   priority?: boolean;
 };
 
+const SOURCES = {
+  'mark': '/logo-mark.png',
+  'mark-knockout': '/logo-mark-knockout.png',
+  'full': '/logo.png',
+  'full-knockout': '/logo-knockout.png'
+} as const;
+
 export function Logo({
   size = 32,
-  variant = 'mark',
+  variant = 'mark-knockout',
   className,
   priority = false
 }: LogoProps) {
-  const src = variant === 'full' ? '/logo.png' : '/logo-mark.png';
   return (
     <Image
-      src={src}
+      src={SOURCES[variant]}
       alt="Paracord"
       width={size}
       height={size}

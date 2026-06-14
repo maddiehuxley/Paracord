@@ -1,28 +1,24 @@
 import type { Metadata } from 'next';
-import { Workbench, IBM_Plex_Mono } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
+import { DotGothic16 } from 'next/font/google';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import './globals.css';
 
-const workbench = Workbench({
+const dot = DotGothic16({
   subsets: ['latin'],
-  variable: '--font-workbench',
-  display: 'swap'
-});
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-plex-mono',
+  weight: ['400'],
+  variable: '--font-dot',
   display: 'swap'
 });
 
 export const metadata: Metadata = {
-  title: 'Paracord Center',
-  description: 'The workshop index for everything built under Paracord Commerce. Software, hardware, web.',
+  title: 'Paracord Center — The workshop index',
+  description:
+    'The home for everything built under Paracord Commerce. Software, hardware, web. Real products, no rent, no API keys, no tracking.',
   metadataBase: new URL('https://paracord.center'),
   openGraph: {
     title: 'Paracord Center',
-    description: 'The workshop index for everything built under Paracord Commerce.',
+    description: 'The home for everything built under Paracord Commerce.',
     url: 'https://paracord.center',
     siteName: 'Paracord Center',
     type: 'website'
@@ -32,12 +28,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${workbench.variable} ${plexMono.variable}`}>
-      <body>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-          {children}
-        </ThemeProvider>
-      </body>
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistMono.variable} ${dot.variable}`}
+    >
+      <body>{children}</body>
     </html>
   );
 }

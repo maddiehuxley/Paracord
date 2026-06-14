@@ -1,85 +1,74 @@
-import { Logo } from './logo';
-import { AnimateIn } from './animate-in';
+import type { Project } from '@/lib/types';
+import { Spotlight } from './spotlight';
 
-export function Hero({ intro }: { intro: string }) {
+export function Hero({ featured }: { featured?: Project }) {
   return (
-    <section id="top" className="relative bg-dots overflow-hidden">
-      {/* corner labels */}
-      <div className="absolute top-3 left-5 t-label" style={{ fontSize: 9 }}>
-        Unit 01 · Index
-      </div>
-      <div className="absolute top-3 right-5 t-label" style={{ fontSize: 9 }}>
-        paracord.center / v1.0
-      </div>
-
-      <div className="px-5 pt-14 pb-12 md:pt-20 md:pb-16">
-        <AnimateIn>
-          {/* The wordmark block, centered on its own row */}
-          <div
-            className="frame inline-flex items-center gap-6 px-6 py-5 md:px-8 md:py-6"
-            style={{ background: 'var(--paper)' }}
-          >
-            <Logo size={86} variant="mark" priority />
-            <div>
-              <div
-                className="t-display"
-                style={{
-                  fontSize: 56,
-                  color: 'var(--ink)',
-                  lineHeight: 0.92
-                }}
-              >
-                PARACORD
-              </div>
-              <div
-                className="t-label flex items-center gap-2"
-                style={{
-                  marginTop: 8,
-                  fontSize: 13,
-                  letterSpacing: '0.7em'
-                }}
-              >
-                CENTER
-                <span className="t-caret" aria-hidden="true">▌</span>
-              </div>
-            </div>
+    <section id="top" className="section pb-16">
+      <div className="grid gap-10 md:gap-14 md:grid-cols-[1.05fr_1fr] items-center">
+        {/* left: copy */}
+        <div className="animate-fade-up">
+          <div className="t-eyebrow mb-4">
+            Paracord Commerce · Prague
           </div>
-        </AnimateIn>
 
-        <AnimateIn delay={80}>
-          <p
-            className="text-[14px] md:text-[15px] leading-[1.75] mt-6 px-4 py-3"
+          <h1
+            className="t-display"
             style={{
-              background: 'var(--paper)',
-              borderLeft: '3px solid var(--orange)',
-              color: 'var(--ink-2)',
-              maxWidth: 620
+              fontSize: 'clamp(36px, 5.5vw, 56px)',
+              color: 'var(--ink)',
+              marginBottom: 22
             }}
           >
-            {intro}
-          </p>
-        </AnimateIn>
+            Paracord is the workshop
+            where it all gets built.
+          </h1>
 
-        <AnimateIn delay={160}>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <a href="#projects" className="btn-shop btn-shop-solid">
-              → Browse projects
+          <p
+            className="mb-7"
+            style={{
+              fontSize: 17,
+              lineHeight: 1.55,
+              color: 'var(--ink-2)',
+              maxWidth: 540
+            }}
+          >
+            The home for everything Paracord Commerce ships. Software, hardware,
+            web. Real products you can hold, install, or open in a browser. No rent,
+            no API keys, no tracking.
+          </p>
+
+          <div className="flex flex-wrap gap-3">
+            <a href="#projects" className="btn btn-primary">
+              Browse projects
             </a>
-            <a href="#shipping" className="btn-shop">
-              ↓ Currently shipping
+            <a href="#shipping" className="btn btn-outline">
+              See what's shipping
             </a>
           </div>
-        </AnimateIn>
-      </div>
 
-      {/* bottom hairline strip with stamp markers */}
-      <div
-        className="flex items-center justify-between px-5 py-2 hairline-t"
-        style={{ background: 'var(--paper)', fontSize: 9, letterSpacing: '0.2em', color: 'var(--ink-3)' }}
-      >
-        <span>PRG · CZ</span>
-        <span>BUILD · STABLE</span>
-        <span>NO TRACKING · NO ADS</span>
+          <div
+            className="mt-10 flex flex-wrap gap-x-7 gap-y-2 items-center"
+            style={{
+              fontFamily: 'var(--font-geist-mono)',
+              fontSize: 11,
+              color: 'var(--ink-3)',
+              letterSpacing: '0.04em'
+            }}
+          >
+            <span>{featured ? `${featured.name} ${featured.version ?? ''} live` : 'v1.0 stable'}</span>
+            <span style={{ color: 'var(--ink-4)' }}>·</span>
+            <span>No tracking</span>
+            <span style={{ color: 'var(--ink-4)' }}>·</span>
+            <span>EU-hosted</span>
+            <span style={{ color: 'var(--ink-4)' }}>·</span>
+            <span>Open source where possible</span>
+          </div>
+        </div>
+
+        {/* right: spotlight */}
+        <div className="animate-fade-up delay-2">
+          <Spotlight project={featured} />
+        </div>
       </div>
     </section>
   );

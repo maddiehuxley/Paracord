@@ -3,48 +3,49 @@
 @tailwind utilities;
 
 /* -----------------------------------------------------------
-   Paracord Center design system
-   Light = white paper, orange ink, black text.
-   Dark  = inverted. Same orange. No black-on-black anywhere.
-   Accent: blueprint blue, used sparingly for one section.
+   Paracord Center — v2 design system
+   Inspired by LibreOffice's clean content panel, plus
+   Paragram's workshop labels and dotted texture.
 ----------------------------------------------------------- */
 
 :root {
   --paper: #FFFFFF;
-  --paper-warm: #FDFBF6;
-  --ink: #0E0E0E;
+  --paper-warm: #FAF9F6;
+  --paper-soft: #F4F2EE;
+  --ink: #1A1A1A;
   --ink-2: #4A4A4A;
-  --ink-3: #7A7A7A;
+  --ink-3: #888888;
+  --ink-4: #B8B8B8;
   --orange: #FF8C1A;
   --orange-deep: #D97208;
-  --blueprint: #2C4D6E;
-  --blueprint-bg: #F4F6F9;
-  --hairline: rgba(255, 140, 26, 0.55);
-  --hairline-soft: rgba(255, 140, 26, 0.28);
+  --orange-soft: #FFE8D1;
+  --orange-dark: #B85D00;
+  --hairline: rgba(0, 0, 0, 0.08);
+  --hairline-strong: rgba(0, 0, 0, 0.16);
+  --spotlight: #0B0B0F;
+  --spotlight-ink: #F0EFEC;
+  --spotlight-ink-2: #B5B4B0;
+  --dot-color: rgba(255, 140, 26, 0.18);
 }
 
-.dark {
-  --paper: #0E0E0E;
-  --paper-warm: #161412;
-  --ink: #F5F5F2;
-  --ink-2: #BFBFBA;
-  --ink-3: #888880;
-  --orange: #FF8C1A;
-  --orange-deep: #FFA64D;
-  --blueprint: #A8C3DF;
-  --blueprint-bg: #131820;
-  --hairline: rgba(255, 140, 26, 0.65);
-  --hairline-soft: rgba(255, 140, 26, 0.3);
-}
+* { box-sizing: border-box; }
 
 html, body {
-  background: var(--paper);
+  background: var(--paper-warm);
   color: var(--ink);
-  font-family: var(--font-plex-mono), ui-monospace, monospace;
-  font-size: 14px;
-  line-height: 1.6;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-size: 15.5px;
+  font-weight: 500;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
+  letter-spacing: -0.005em;
+}
+
+html {
+  /* Subtle dot texture in the page background */
+  background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1.4px);
+  background-size: 22px 22px;
 }
 
 ::selection {
@@ -52,141 +53,329 @@ html, body {
   color: var(--paper);
 }
 
-/* Workshop type roles */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  font-weight: 500;
+}
+
+/* -----------------------------------------------------------
+   Typography roles
+----------------------------------------------------------- */
+
 .t-display {
-  font-family: var(--font-workbench), ui-monospace, monospace;
-  letter-spacing: 0.03em;
-  line-height: 0.95;
+  font-family: var(--font-geist-sans);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
 }
 
-.t-label {
-  font-family: var(--font-plex-mono), ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: var(--orange);
+.t-display-md {
+  font-family: var(--font-geist-sans);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.t-eyebrow {
+  font-family: var(--font-geist-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  color: var(--orange-deep);
 }
 
-.t-meta {
-  font-family: var(--font-plex-mono), ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  color: var(--ink-2);
-  text-transform: uppercase;
+.t-mono {
+  font-family: var(--font-geist-mono);
+  font-weight: 500;
 }
 
-/* Blinking workshop caret */
-.t-caret {
+.t-led {
+  font-family: var(--font-dot);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+/* Underline accent used in section headings (LibreOffice-style) */
+.t-underline {
+  position: relative;
   display: inline-block;
-  color: var(--orange);
-  animation: t-blink 1.05s steps(1, end) infinite;
+  padding-bottom: 0.45em;
+}
+.t-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 64px;
+  height: 4px;
+  background: var(--orange);
+  border-radius: 2px;
 }
 
-@keyframes t-blink {
+/* -----------------------------------------------------------
+   Layout primitives
+----------------------------------------------------------- */
+
+.page-shell {
+  max-width: 1080px;
+  margin: 0 auto;
+  background: var(--paper);
+  position: relative;
+  min-height: 100vh;
+  border-left: 1px solid var(--hairline);
+  border-right: 1px solid var(--hairline);
+}
+
+.section {
+  padding: 88px 56px;
+}
+
+@media (max-width: 768px) {
+  .section { padding: 56px 24px; }
+}
+
+.section-warm { background: var(--paper-warm); }
+.section-soft { background: var(--paper-soft); }
+.section-spotlight {
+  background: var(--spotlight);
+  color: var(--spotlight-ink);
+}
+
+/* -----------------------------------------------------------
+   Buttons
+----------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 4px;
+  font-family: var(--font-geist-sans);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--orange);
+  color: #FFFFFF;
+  border-color: var(--orange);
+}
+
+.btn-primary:hover {
+  background: var(--orange-deep);
+  border-color: var(--orange-deep);
+}
+
+.btn-primary:active { transform: translateY(1px); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.btn-outline:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--orange-deep);
+  border-color: transparent;
+  padding: 6px 0;
+  text-transform: none;
+  font-weight: 600;
+}
+
+.btn-ghost:hover { color: var(--orange-dark); }
+
+/* -----------------------------------------------------------
+   Cards
+----------------------------------------------------------- */
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.card-hover:hover {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -12px rgba(255, 140, 26, 0.25);
+}
+
+/* -----------------------------------------------------------
+   Links
+----------------------------------------------------------- */
+
+.link {
+  color: var(--orange-deep);
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.link:hover {
+  color: var(--orange-dark);
+  border-bottom-color: var(--orange);
+}
+
+/* -----------------------------------------------------------
+   LED dot-matrix wordmark
+----------------------------------------------------------- */
+
+.led-wordmark {
+  font-family: var(--font-dot);
+  font-weight: 400;
+  color: var(--orange);
+  letter-spacing: 0.08em;
+}
+
+/* -----------------------------------------------------------
+   Animations
+----------------------------------------------------------- */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes blink {
   0%, 50% { opacity: 1; }
   50.01%, 100% { opacity: 0; }
 }
 
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out both;
+}
+
+.animate-blink {
+  animation: blink 1.05s steps(1, end) infinite;
+}
+
+.delay-1 { animation-delay: 80ms; }
+.delay-2 { animation-delay: 160ms; }
+.delay-3 { animation-delay: 240ms; }
+.delay-4 { animation-delay: 320ms; }
+.delay-5 { animation-delay: 400ms; }
+
 @media (prefers-reduced-motion: reduce) {
-  .t-caret { animation: none; opacity: 1; }
-  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
-/* The dot patterns */
-.bg-dots {
-  background-image: radial-gradient(circle, var(--orange) 1.4px, transparent 1.6px);
-  background-size: 18px 18px;
-  background-position: 9px 9px;
+/* -----------------------------------------------------------
+   Right-side ad rail
+----------------------------------------------------------- */
+
+.ad-rail {
+  position: fixed;
+  top: 88px;
+  right: max(20px, calc((100vw - 1080px) / 2 - 156px));
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 5;
 }
 
-.bg-dots-tight {
-  background-image: radial-gradient(circle, var(--orange) 1.2px, transparent 1.4px);
-  background-size: 14px 14px;
+@media (max-width: 1280px) {
+  .ad-rail { display: none; }
 }
 
-.bg-dots-soft {
-  background-image: radial-gradient(circle, var(--hairline-soft) 1.4px, transparent 1.6px);
-  background-size: 18px 18px;
-}
-
-.bg-dots-blueprint {
-  background-image: radial-gradient(circle, var(--blueprint) 1.2px, transparent 1.4px);
-  background-size: 16px 16px;
-  opacity: 0.5;
-}
-
-/* Workshop frame: hairline orange border, sharp corners */
-.frame {
-  border: 1px solid var(--orange);
-  border-radius: 2px;
-}
-
-.frame-soft {
+.ad-slot {
+  background: var(--paper);
   border: 1px solid var(--hairline);
-  border-radius: 2px;
-}
-
-.frame-dashed {
-  border: 1px dashed var(--hairline);
-  border-radius: 2px;
-}
-
-/* Hairlines */
-.hairline-t { border-top: 1px solid var(--hairline); }
-.hairline-b { border-bottom: 1px solid var(--hairline); }
-.hairline-l { border-left: 1px solid var(--hairline); }
-.hairline-r { border-right: 1px solid var(--hairline); }
-
-.hairline-t-thick { border-top: 1.5px solid var(--orange); }
-.hairline-b-thick { border-bottom: 1.5px solid var(--orange); }
-
-/* Workshop buttons */
-.btn-shop {
-  display: inline-flex;
+  border-radius: 4px;
+  padding: 16px 12px;
+  text-align: center;
+  font-family: var(--font-geist-mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 6px;
-  padding: 9px 16px;
-  border: 1.5px solid var(--orange);
-  color: var(--orange);
-  background: transparent;
-  font-family: var(--font-plex-mono), ui-monospace, monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.16s, color 0.16s, transform 0.16s;
-  border-radius: 2px;
 }
 
-.btn-shop:hover {
-  background: var(--orange);
-  color: var(--paper);
-}
-
-.btn-shop:active {
-  transform: translateY(1px);
-}
-
-.btn-shop-solid {
-  background: var(--orange);
-  color: var(--paper);
-}
-
-.btn-shop-solid:hover {
-  background: var(--orange-deep);
-  color: var(--paper);
-}
-
-/* Dotted-underline links */
-.link-dot {
+.ad-slot:hover {
+  border-color: var(--orange);
   color: var(--ink);
-  text-decoration: none;
-  border-bottom: 1px dotted var(--orange);
-  padding-bottom: 1px;
 }
 
-.link-dot:hover {
+.ad-slot-label {
+  font-family: var(--font-geist-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--ink-4);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+/* -----------------------------------------------------------
+   Spotlight (Paragram-style dark mockup panel)
+----------------------------------------------------------- */
+
+.spotlight-frame {
+  background: var(--spotlight);
+  color: var(--spotlight-ink);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  font-family: var(--font-geist-sans);
+}
+
+.spotlight-label {
+  font-family: var(--font-geist-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: var(--orange);
+}
+
+.spotlight-pip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: var(--spotlight);
+  font-family: var(--font-geist-sans);
+  font-size: 10px;
+  font-weight: 700;
 }
